@@ -12,6 +12,7 @@ In other words, we can get many types of real-world problems and then model them
 
 ### TODO
 - Come up with instructions for maxclique
+- Restore or remake lotsizing lost readme
 - Revise readme problem explanations
 - Refactor code for readability
 - Fill main readme with how to run
