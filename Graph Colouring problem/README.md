@@ -18,7 +18,7 @@ We may then think of the necessary restrictions:
 
 We must then consider a way of ~~mathematically~~ programmatically determine when objects are neighbours. The most direct approach is to consider the data structure that is to be received: by addressing the adjacency list with indices $u$ and $v$, we can address only the existing connected pairs of the dataset.
 
-Toolset reminders:
+"Toolset" reminders:
 - Only one (boolean) element can be true: $x + y \leq 1$
 - Maximizing or minimizing the number of choices: Multiply values by a boolean variable for each element,and the sum of all of these boolean variables must be maximized/minimized (represented by the $E_i$ variable in this problem).
 
@@ -27,10 +27,40 @@ Toolset reminders:
 - $E_i$ $\rarr$ Indicates wether the colour $i$ was chosen to be in the result.
 
 ### Resulting mathematical model
-$\left( \sum_{i=1}^{n}{x_{ij}} \right) = 1$  (Each node has only one colour)
-
-$x_{ui} + x_{vi} \leq 1$ (Each connected object $u$ and $v$ cannot have the same colour $i$)
-
-$x_{ui} + x_{vi} \leq 1 * E_i$ (Auxiliary variable $E_i$ defines choice of wether colour will be used)
-
 $min \sum_{i=1}^{n}{E_i}$
+
+Such that:
+
+Each node has only one colour: $\left( \sum_{i=1}^{n}{x_{ij}} \right) = 1$ $(\forall j \in \{range\})$
+
+Each connected object $u$ and $v$ cannot have the same colour $i$:
+$$
+\begin{array}{c}
+x_{ui} + x_{vi} \leq 1
+\end{array}
+
+\left(
+\begin{array}{c}
+\forall i,j \in \{range\}, \\
+\forall u \in Vertices(G), \\
+\forall v \in Neighbours(G)
+\end{array}
+\right)
+$$
+
+Adding auxiliary variable $E_i$ defines choice of wether colour will be used:
+$$
+\begin{array}{c}
+x_{ui} + x_{vi} \leq 1 * E_i
+\end{array}
+
+\left(
+\begin{array}{c}
+\forall i \in \{range\}, \\
+\forall u \in Vertices(G), \\
+\forall v \in Neighbours(G)
+\end{array}
+\right)
+$$
+
+$\text{range} = \{1,2,3,...,n\}$

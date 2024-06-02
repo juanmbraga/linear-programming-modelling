@@ -23,16 +23,18 @@ All restrictions can then be derived from that:
 - The maximum wheight all objects in a box can sum up to is 20kg
 
 ### Resulting mathematical model
-$\text{objects} = \{1,2,...,n\}$
-
-If object $j$ is in box $i$ : $w_j \in \{0,1\}$
-
-Object $j$ can only be in one box : $\sum_{j=1}^{n}{x_{ij} = 1}$ such that $\forall i \in objects$
-
-Max. weight of box $i$ is 20kg : $\sum_{j=1}^{n}{x_{ij} * w_j \leq 20}$ such that $\forall i \in \text{objects}$
-
-Adding trick to choose wether box $i$ is used : $\sum_{j=1}^{n}{x_{ij} * w_j \leq 20 * z_i}$ such that $\forall i \in \text{objects}$
-
-$z_i \in \{0,1\}$
-
 $min \sum_{i=1}^{n}{z_i}$
+
+Such that:
+
+Object $j$ can only be in one box: $\sum_{j=1}^{n}{x_{ij} = 1} \left( \forall i \in \{range\} \right)$
+
+Max. weight of box $i$ is 20kg: $\sum_{j=1}^{n}{x_{ij} * w_j \leq 20}$ $\left( \forall i \in \{range\} \right)$
+
+Adding trick to choose wether box $i$ is used: $\sum_{j=1}^{n}{x_{ij} * w_j \leq 20 * z_i}$ $(\forall i \in \{range\})$
+
+If object $j$ is in box $i$: $w_j \in \{0,1\}$ $(\forall j \in \{range\})$
+
+Box can either be chosen or not: $z_i \in \{0,1\}$ $( \forall i \in \{range\})$
+
+$\text{range} = \{1,2,3,...,n\}$

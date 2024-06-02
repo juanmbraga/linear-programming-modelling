@@ -25,8 +25,10 @@ end
 ### Variables
 
 ### Resulting mathematical model
-$x_i + x_j \leq Z_{ij} + 1$
-
 $max \sum_{i=1,j=1}^{n}{x_{ij}}$
 
+Such that:
 
+$x_i + x_j \leq Z_{ij} + 1$ $(\forall i,j \in \{range\})$
+
+$\text{range} = \{1,2,3,...,n\}$

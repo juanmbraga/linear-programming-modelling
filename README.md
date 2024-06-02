@@ -10,7 +10,6 @@ In this assignment the students were meant to model 5 problems in the `Julia` pr
 ### TODO
 - Fill main readme
 - Come up with instructions for maxclique
-- Revamp math models (add $\forall$s and change order)
 - Revise readme problem explanations
 - Refactor code for readability
 - Figure out A-colouring
