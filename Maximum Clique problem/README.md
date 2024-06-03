@@ -1,6 +1,8 @@
 # Maximal Clique
 **Problem**: Given a graph G = (V, E), a clique is a set of vertices that are pairwise adjacent, meaning there are edges between all of them (a totally connected subgraph). We want to find an induced subgraph that forms a clique of maximum cardinality (largest size in terms of the number of vertices).
 
+Source: Assignment 1 from 2024.1, DCC035 Pesquisa Operacional, UFMG.
+
 ## Values
 - $n$ $\rarr$ Number of nodes
 - $i$ and $j$ $\rarr$ nodes from the adjacency list

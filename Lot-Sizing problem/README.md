@@ -1,6 +1,8 @@
 # Packing
 **Problem**: We're currently helping out a producer with their production planning. This producer wants us to map out their production for a time horizon spanning $n$ periods. They're dealing with a single product, and they've got a good handle on customer demands for each time period $i$ ($d_i$), the production cost per unit at each time $i$ ($c_i$), and the cost of storing a unit from time $i$ to $i + 1$ ($h_i$). However, because their product is seasonal, there's a chance that some customer orders won't be fulfilled in a given period. In such cases, we can still deliver the product late to the customer, but we'll have to pay a penalty of $p_i$ per unit for any product ordered by the customer but not yet delivered in period $i$.
 
+Source: Assignment 1 from 2024.1, DCC035 Pesquisa Operacional, UFMG.
+
 ## Values:
 - $n$ $\rarr$ Number of periods
 - $d_i$ $\rarr$ Demand at time $i$

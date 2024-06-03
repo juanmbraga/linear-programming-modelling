@@ -3,6 +3,8 @@
 
 We want to determine the largest number of colors possible to properly color a given input graph and ensure that the obtained coloring is an A-coloring.
 
+Source: Assignment 1 from 2024.1, DCC035 Pesquisa Operacional, UFMG.
+
 ## Values
 
 ## Modelling

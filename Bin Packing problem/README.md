@@ -2,6 +2,8 @@
 ## Problem
 Consider a set of objects $O = {o_1, o_2, ..., o_n}$, where each object has a weight $w_i$. We have several cardboard boxes, each with a weight limit of 20kg. We want to pack our objects using the fewest number of boxes possible, ensuring that the sum of the weights of the objects in any box does not exceed its weight limit.
 
+Source: Assignment 1 from 2024.1, DCC035 Pesquisa Operacional, UFMG.
+
 ## Values:
 - $n$ $\rarr$ Number of objects
 - $i$ $\rarr$ Current box

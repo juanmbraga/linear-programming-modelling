@@ -1,6 +1,8 @@
 # Graph coloring
 **Problem**: Given a graph G = (V, E), a proper coloring is an assignment of colors to the vertices of the graph such that adjacent vertices receive different colors. We want to determine the smallest number of colors needed to properly color a given input graph.
 
+Source: Assignment 1 from 2024.1, DCC035 Pesquisa Operacional, UFMG.
+
 ## Values
 - $n$ Number of objects
 - $i$ Index of colour (maximum is the number of objects)
