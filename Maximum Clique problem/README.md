@@ -1,5 +1,5 @@
 # Maximal Clique
-**Problem**: Given a graph G = (V, E), a clique is a set of vertices that are pairwise adjacent, meaning there are no edges between them. We want to find an induced subgraph that forms a clique of maximum cardinality (largest size in terms of the number of vertices).
+**Problem**: Given a graph G = (V, E), a clique is a set of vertices that are pairwise adjacent, meaning there are edges between all of them (a totally connected subgraph). We want to find an induced subgraph that forms a clique of maximum cardinality (largest size in terms of the number of vertices).
 
 ## Values
 - $n$ $\rarr$ Number of nodes
@@ -8,19 +8,31 @@
 
 ## Modelling
 ### Logic
-This is a simple but tricky one. First we can 
+This is a tricky one, even if the solution is short.
+
+When it comes to cliques, the only restriction to be considered is that every node in it must have a connection to all of it's other nodes. 
+
+Because of that, **whenever we get any two given nodes, if they don't have an edge connecting them, then they cannot both be in the solution at the same time**.
+
+Therefore we must make a model that will only be false when 1. two of them are not connected and 2. they are both included in the solution:
+
+---
+
+First we consider an array of boolean elements, where $x_i$ will indicate wether node $i$ belongs to the largest clique. The objective function will be to maximize the sum of these elements, getting a clique with the most nodes in it.
+
+Second, we build a boolean matrix to indicate wether a pair of nodes have a connection or not. Let's just call it `adjacency_matrix`.
+
+Then we add the restriction described above to all pairs of vertices. Check out the code below:
 
 ```julia
-# both edge i and its neighbor j can't be on clique
-for i in 1:size
-    for j in i+1:size
-        @constraint(modelo, x[i] + x[j] <= adjacency_list[i,j] + 1)
-    end
+# both edge i and its neighbor j can't be on clique if they are not connected
+for (every i and j in Graph)
+    @constraint(model, x[i] + x[j] <= adjacency_matrix[i,j] + 1)
 end
 ```
 
 "Toolset" reminders:
-- At least one (boolean) element will be true: $x + y \leq z + 1$
+- At least one (boolean) element from the left size of the equation will be true: $x + y \leq 1$
 
 ### Variables
 
