@@ -15,13 +15,12 @@ Source: Assignment 1 from 2024.1, DCC035 Pesquisa Operacional, UFMG.
 - $y_i$ $\rarr$ How much should be stored from time $i$ to $i+1$
 - $z_i$ $\rarr$ Undelivered amount at time $i$
 - $w_i$ $\rarr$ Actually sold production at time $i$ ($x_i - y_i$)
-- 
+
 ### First attempt at modelling
 
 ### Logic
-- using "day" notation to simplify
+Using "day" to represent periods make the notation easier.
 
-#### first
 $$
 \left(
 \begin{array}{c}
@@ -61,7 +60,7 @@ $$
 \right)
 $$
 
-#### second
+
 $$
 \left(
 \begin{array}{c}
@@ -87,7 +86,7 @@ $$
 \right)
 $$
 
-#### third
+
 $$
 \left(
 \begin{array}{c}
@@ -96,7 +95,7 @@ $$
 \text{amount}
 \end{array}
 \right)
-\times p_i
+\times penalty_i
 +
 \left(
 \begin{array}{c}
@@ -104,7 +103,7 @@ $$
 \text{production}
 \end{array}
 \right)
-\times c_i
+\times cost_i
 +
 \left(
 \begin{array}{c}
@@ -113,40 +112,149 @@ $$
 \text{stored}
 \end{array}
 \right)
-\times h_i
+\times storage\_price_i
 $$
 
 
-
 ### Resulting mathematical model
+Equation one : $y_{i-1} + x_i + z_i \geq d_i + z_{i-1}$ $(\forall i \in \{periods\})$
+
+Equation two: $y_i + w_i = x_i$ $(\forall i \in \{periods\})$
+
+Equation three: $min\sum_{i=1}^{n}{{z_i \cdot p_i} + {x_i \cdot c_i} + {y_i \cdot h_i}}$ $(\forall i \in \{periods\})$
+
+No storage in the first day from before: $y_0 = 0$
+
+No storage remaining in the last day: $y_n = 0$
+
+$w_i \geq 0$, $z_i \geq 0$, $x_i \geq 0$, $y_i \geq 0$ $(\forall i \in \{periods\})$
+
+$\text{periods} = \{1,2,3,...,n\}$
+
 
 ## Second attempt at modelling
-### Variables
 ### Logic
+First day:
+$$
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{production}
+\end{array}
+\right)
+=
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{demand}
+\end{array}
+\right)
++
+\left(
+\begin{array}{c}
+\text{amount} \\
+\text{to be} \\
+\text{stored}
+\end{array}
+\right)
+-
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{undelivered} \\
+\text{amount}
+\end{array}
+\right)
+$$
+
+Second day:
+$$
+\left(
+\begin{array}{c}
+\text{yesterday's} \\
+\text{leftovers}
+\end{array}
+\right)
+-
+\left(
+\begin{array}{c}
+\text{yesterday's} \\
+\text{unmet}\\
+\text{demand}
+\end{array}
+\right)
++
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{production}
+\end{array}
+\right)
+=
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{demand}
+\end{array}
+\right)
++
+\left(
+\begin{array}{c}
+\text{amount} \\
+\text{to be} \\
+\text{stored}
+\end{array}
+\right)
+-
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{undelivered} \\
+\text{amount}
+\end{array}
+\right)
+$$
+
+Target function:
+$$
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{undelivered} \\
+\text{amount}
+\end{array}
+\right)
+\times penalty_i
++
+\left(
+\begin{array}{c}
+\text{today's} \\
+\text{production}
+\end{array}
+\right)
+\times cost_i
++
+\left(
+\begin{array}{c}
+\text{amount} \\
+\text{to be} \\
+\text{stored}
+\end{array}
+\right)
+\times storage\_price_i
+$$
+
 ### Resulting mathematical model
+Day one: $x_1 = d_1 + y_1 - z_1$
 
-months, production_cost, demand, storage_cost, penalty_cost = readData(file)
+Equation two: $y_{i-1} - z_{i-1} + x_i = d_i + y_i - z_i$ $(\forall i \in \{2, 3, ..., n\})$
 
-@variable(model, x[i=1:months] >= 0) # production
-@variable(model, y[i=1:months] >= 0) # storage for next month
-@variable(model, z[i=1:months] >= 0) # undelivered
-@variable(model, w[i=1:months] >= 0) # actually sold production
+Target equation: $min\sum_{i=1}^{n}{{z_i \cdot p_i} + {x_i \cdot c_i} + {y_i \cdot h_i}}$ $(\forall i \in \{periods\})$
 
-# first day, no storage
-#@constraint(model, x[1] + z[1] >= demand[1])
-#@constraint(model, y[1] == 0)
-# last day, no storage
-#@constraint(model, y[months] == 0)
-# general equation for each month
-#@constraint(model, [i=2:months], y[i-1] + x[i] + z[i] >= demand[i] + z[i-1])
-# defining production as stored + sold
-#@constraint(model, [i=1:months], y[i] + w[i] == x[i])
+No storage in the first day ($i$) from before ($i-1$): $y_0 = 0$
 
-# first day, no storage, last day, no storage
-@constraint(model, x[1] == demand[1] + y[1] - z[1])
-@constraint(model, y[1] == 0)
-@constraint(model, y[months] == 0)
-# general equation
-@constraint(model, [i=2:months], y[i-1] - z[i-1] + x[i] == demand[i] + y[i] - z[i])
+No storage remaining in the last day: $y_n = 0$
 
-@objective(model, Min, sum(z[i]*penalty_cost[i] + x[i]*production_cost[i] + y[i]*storage_cost[i] for i=1:months))
+$w_i \geq 0$, $z_i \geq 0$, $x_i \geq 0$, $y_i \geq 0$ $(\forall i \in \{periods\})$
+
+$\text{periods} = \{1,2,3,...,n\}$

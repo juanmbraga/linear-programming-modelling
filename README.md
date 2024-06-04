@@ -28,7 +28,6 @@ julia lotsizing.jl "problem instances"/INST1_PB3.txt
 ```
 
 ### TODO
-- Restore or remake lotsizing lost readme
 - Refactor code for readability
 - Figure out A-colouring
 - Revise readme problem explanations
